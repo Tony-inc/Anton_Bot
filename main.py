@@ -2,8 +2,8 @@ import telebot
 from telebot import types
 from random import choice
 from api import Giphy
-import os
-import pdftotext
+from os import remove
+from pdftotext import PDF
 import pyttsx3
 from gtts import gTTS
 
@@ -75,7 +75,7 @@ def file(message):
 
 def convert_pdf(original_filepath: str, converted_filename: str, extension: str):
     with open(original_filepath, 'rb') as f:
-        pdf = pdftotext.PDF(f)
+        pdf = PDF(f)
 
     speak = pyttsx3.init()
     speak.save_to_file(pdf[0], f'{converted_filename}.{extension}')
@@ -102,8 +102,8 @@ def pdf_to_audio(message):
         # file_to_send = f.read()
         bot.send_document(message.chat.id, f)
 
-    os.remove(file_name)
-    os.remove(f'converted-{file_name.split(".")[0]}.{extension}')
+    remove(file_name)
+    remove(f'converted-{file_name.split(".")[0]}.{extension}')
 
 
 @bot.message_handler(commands=['pdf_to_mp3'])
@@ -143,7 +143,7 @@ def message(message):
 
         audio = open(file_name, 'rb')
         bot.send_voice(message.chat.id, audio, reply_to_message_id=message.id)
-        os.remove(file_name)
+        remove(file_name)
 
     else:
         bot.send_message(message.chat.id, "I don't get it")
