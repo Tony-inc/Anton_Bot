@@ -1,5 +1,4 @@
-gTTS==2.2.4
-pdftotext==2.2.2
-pyttsx3==2.90
-requests==2.26.0
-
+gTTS
+pdftotext
+pyttsx3
+requests
