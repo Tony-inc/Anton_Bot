@@ -1,2 +1,1 @@
-libpoppler-cpp-dev
-python3-poppler-qt5
+build-essential libpoppler-cpp-dev pkg-config python3-dev
