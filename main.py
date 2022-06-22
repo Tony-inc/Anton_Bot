@@ -3,7 +3,7 @@ from telebot import types
 from random import choice
 from api import Giphy
 from os import remove
-from pdftotext import PDF
+import pdftotext
 import pyttsx3
 from gtts import gTTS
 
@@ -81,7 +81,7 @@ def file(message):
 
 def convert_pdf(original_filepath: str, converted_filename: str, extension: str):
     with open(original_filepath, 'rb') as f:
-        pdf = PDF(f)
+        pdf = pdftotext.PDF(f)
 
     speak = pyttsx3.init()
     speak.save_to_file(pdf[0], f'{converted_filename}.{extension}')
