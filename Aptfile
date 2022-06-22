@@ -1,2 +1,2 @@
 libpoppler-cpp-dev
-brew install pkg-config poppler python
+qpdfview-pdf-poppler-plugin
