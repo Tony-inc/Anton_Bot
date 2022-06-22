@@ -10,6 +10,7 @@ from gtts import gTTS
 extension = 'mp3'
 voice = False
 n = 1
+
 giphy = Giphy()
 bot = telebot.TeleBot('5374635129:AAG9l18dW7vpsHpIV4V13lW51nBVaIu_JVI')
 sayings = ['I love you like a fat kid loves cake.', 'You want to know who I am in love with? Read the first word again.', 'I love you with all my belly. I would say heart, but my belly is bigger.']
@@ -48,22 +49,27 @@ def help_2(message):
 def kiss(message):
     bot.send_animation(message.chat.id, giphy.get_url("kiss"))
 
+
 @bot.message_handler(commands=['hug'])
 def hug(message):
     bot.send_animation(message.chat.id, giphy.get_url("hug"))
 
+
 @bot.message_handler(commands=['saying'])
 def saying(message):
     bot.send_message(message.chat.id, choice(sayings))
+
 
 @bot.message_handler(commands=['joke'])
 def joke(message):
     bot.send_message(message.chat.id, giphy.get_joke()[0])
     bot.send_message(message.chat.id, giphy.get_joke()[1])
 
+
 @bot.message_handler(commands=['iss'])
 def iss(message):
     bot.send_location(message.chat.id, giphy.location()[0], giphy.location()[1])
+
 
 @bot.message_handler(commands=['resume'])
 def file(message):
@@ -84,6 +90,7 @@ def convert_pdf(original_filepath: str, converted_filename: str, extension: str)
     speak.runAndWait()
 
 # content_types=['document', 'photo', 'audio', 'video', 'voice']
+
 
 @bot.message_handler(content_types=['document'])
 def pdf_to_audio(message):
@@ -119,6 +126,7 @@ def pdf_to_wav(message):
     global extension
     extension = 'wav'
 
+
 @bot.message_handler(commands=['text_to_voice'])
 def voice(message):
     global n
@@ -130,7 +138,6 @@ def voice(message):
         bot.send_message(message.chat.id, 'The voice mode is off')
         voice = False
     n += 1
-
 
 
 @bot.message_handler()
@@ -149,13 +156,6 @@ def message(message):
         bot.send_message(message.chat.id, "I don't get it")
 
 
-
-
-
 # convert_pdf('test.pdf', 'converted-test', 'mp3')
-
-
-
-
 
 bot.polling(non_stop=True)
