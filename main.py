@@ -94,23 +94,26 @@ def convert_pdf(original_filepath: str, converted_filename: str, extension: str)
 
 @bot.message_handler(content_types=['document'])
 def pdf_to_audio(message):
-    global extension
-    file_name = message.document.file_name
-    file_info = bot.get_file(message.document.file_id)
-    downloaded_file = bot.download_file(file_info.file_path)
+    try:
+        global extension
+        file_name = message.document.file_name
+        file_info = bot.get_file(message.document.file_id)
+        downloaded_file = bot.download_file(file_info.file_path)
 
-    with open(file_name, 'wb') as new_file:
-        new_file.write(downloaded_file)
+        with open(file_name, 'wb') as new_file:
+            new_file.write(downloaded_file)
 
-    convert_pdf(file_name, f'converted-{file_name.split(".")[0]}', extension)
+        convert_pdf(file_name, f'converted-{file_name.split(".")[0]}', extension)
 
-    with open(f'converted-{file_name.split(".")[0]}.{extension}', 'rb') as f:
-        # pdf = pdftotext.PDF(f)
-        # file_to_send = f.read()
-        bot.send_document(message.chat.id, f)
+        with open(f'converted-{file_name.split(".")[0]}.{extension}', 'rb') as f:
+            # pdf = pdftotext.PDF(f)
+            # file_to_send = f.read()
+            bot.send_document(message.chat.id, f)
 
-    remove(file_name)
-    remove(f'converted-{file_name.split(".")[0]}.{extension}')
+        remove(file_name)
+        remove(f'converted-{file_name.split(".")[0]}.{extension}')
+    except:
+        pass
 
 
 @bot.message_handler(commands=['pdf_to_mp3'])
