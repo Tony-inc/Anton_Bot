@@ -102,6 +102,7 @@ def pdf_to_audio(message):
     with open(file_name, 'wb') as new_file:
         new_file.write(downloaded_file)
 
+
     convert_pdf(file_name, f'converted-{file_name.split(".")[0]}', extension)
 
     with open(f'converted-{file_name.split(".")[0]}.{extension}', 'rb') as f:
@@ -109,8 +110,9 @@ def pdf_to_audio(message):
         # file_to_send = f.read()
         bot.send_document(message.chat.id, f)
 
-    remove(file_name)
+
     remove(f'converted-{file_name.split(".")[0]}.{extension}')
+    remove(file_name)
 
 
 @bot.message_handler(commands=['pdf_to_mp3'])
